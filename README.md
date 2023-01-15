@@ -1,6 +1,14 @@
 # Computer-Graphics-and-Image-Processing
 
 ## For Ubuntu users:
+
+## For Lab setup We can go throuh the following [Link](https://dev.to/dhar01/setting-up-codeblocks-with-freeglut-in-linux-9if?fbclid=IwAR0if8ZgpiLdzuAWPREZomoyCGL9sjG-KTr4bJRuUuRExx3Bc6wNrGKds2w)
+
+## Still Stuck?
+### Go through the document I have written below:
+ 
+ 
+ 
 ```
 sudo apt install g++ freeglut3 freeglut3-dev
 
