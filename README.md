@@ -276,6 +276,9 @@ Type the following command for an error:
 ```
 sudo apt-get install libgl1-mesa-dev xorg-dev
 ```
+Check weather you can see this pic after running main.cpp file:
+
+![finalpic](https://user-images.githubusercontent.com/43321488/212569214-12fc52a4-277f-4e91-a136-4e3f306a4ade.png)
 
 
 
