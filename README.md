@@ -73,13 +73,13 @@ sudo chmod 777 /usr/share/codeblocks/templates/wizard/freeglut
 
 You will find another directory named glut in wizard. Copy all the contents and paste it on the newly created freeglut directory.
 
-Now type the following command:
+Now type the following command on terminal:
 ```
-sudo  cp -r glut freeglut
-sudo cp -r files logo.png wizard.png wizard.script ../
-sudo rm -rf glut
-sudo rm wizard.script
-sudo nano wizard.script
+/usr/share/codeblocks/templates/wizard:   sudo  cp -r glut freeglut
+/usr/share/codeblocks/templates/wizard/freeglut/glut: sudo cp -r files logo.png wizard.png wizard.script ../
+/usr/share/codeblocks/templates/wizard/freeglut:  sudo rm -rf glut
+/usr/share/codeblocks/templates/wizard/freeglut:  sudo rm wizard.script
+/usr/share/codeblocks/templates/wizard/freeglut:  sudo nano wizard.script
 
 ```
 
