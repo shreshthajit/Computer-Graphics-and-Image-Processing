@@ -1,98 +1,94 @@
 #include<cstdlib>
 #include<cstdio>
-#include<gl/glut.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
 #include<cmath>
 
-float xStart, xEnd, yStart, yEnd;
 
-void init(void)
-{
-	glClearColor(1.0, 1.0, 1.0, 0.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity(); // multiply the current matrix by identity matrix
-	gluOrtho2D(0.0, 640.0, 0.0, 480.0);
-}
-
-int Round(float a)
-{
-	if (a - (int)a >= 0.5)
-		return (int)a + 1;
-	return int(a);
-}
-
-void swapPoints()
-{
-	float temp = xStart;
-	xStart = xEnd;
-	xEnd = temp;
-	temp = yStart;
-	yStart = yEnd;
-	yEnd = temp;
-}
-
-void plotPoint(float x, float y)
-{
-	glBegin(GL_POINTS);
-	glVertex2i(x, y);
-	glEnd();
-}
-
+float x=0,y,x2,y2,m,i,j,p;
+int dx=0,dy=0,r;
 void display(void)
 {
-	float m = (yEnd - yStart) / (xEnd - xStart);
+    /* clear all pixels */
+    glClear (GL_COLOR_BUFFER_BIT);
+    /* draw white polygon (rectangle) with corners at
+    * (0.25, 0.25, 0.0) and (0.75, 0.75, 0.0)
+    */
+    glEnd();
 
-	if (abs(m) < 1 && xStart > xEnd)
-	{
-		swapPoints();
-	}
+    glColor3f (0.0, 1.0, 0.0);
+    glBegin(GL_POINTS);
+    p=1-r;
+    while((x<=y))
+    {
+        if(p<0)
+        {
+            x=x+1;
+            y=y;
+            printf("%0.2f %0.2f\n",x,y);
+            p=p+(2*x)+1;
+        }
 
-	float x = xStart, y = yStart;
-	plotPoint(x, y);
 
-	if (abs(m) < 1)
-	{
-		while (x <= xEnd - 1)
-		{
-			x = x + 1;
-			y = y + m;
+        else
+        {
+            x=x+1;
+            y=y-1;
+            printf("%0.2f %0.2f\n",x,y);
+            p=p+(2*x)+1-(2*y);
+        }
+        glVertex3f (((x/100)), ((y/100)), 0.0);
+        glVertex3f (((y/100)), ((x/100)), 0.0);
+        glVertex3f ((-(x/100)), (-(y/100)), 0.0);
+        glVertex3f ((-(x/100)), ((y/100)), 0.0);
+        glVertex3f (((x/100)), (-(y/100)), 0.0);
+        glVertex3f (((y/100)), (-(x/100)), 0.0);
+        glVertex3f ((-(y/100)), (-(x/100)), 0.0);
+        glVertex3f ((-(y/100)), ((x/100)), 0.0);
+    }
+    glEnd();
 
-			plotPoint(x, Round(y));
-		}
-		plotPoint(xEnd, yEnd);
-	}
-	else if (abs(m) > 1)
-	{
-		if (yStart > yEnd)
-		{
-			swapPoints();
-		}
-		x = xStart, y = yStart;
-		m = 1 / m;
-		while (y <= yEnd - 1)
-		{
-			x = x + m;
-			y = y + 1;
-
-			plotPoint(Round(x), (y));
-
-		}
-		plotPoint(xEnd, yEnd);
-	}
-	glFlush();
-
+    /* don't wait!
+    * start processing buffered OpenGL routines
+    */
+    glFlush ();
 }
+void init (void)
+{
+    /* select clearing (background) color */
+    glClearColor (0.0, 0.0, 0.0, 0.0);
+    /* initialize viewing values */
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+    /**
+    gluOrtho2D(-300, 300, 0, 600);
 
+    */
+}
+/*
+* Declare initial window size, position, and display mode
+* (single buffer and RGBA). Open window with "hello"
+* in its title bar. Call initialization routines.
+* Register callback function to display graphics.
+* Enter main loop and process events.
+*/
 int main(int argc, char** argv)
 {
-	printf_s("Input xStart,yStart,xEnd,yEnd:\n");
-	scanf_s("%f %f %f %f", &xStart, &yStart, &xEnd, &yEnd);
 
-	glutInit(&argc, argv);
-	glutInitWindowSize(640, 480);//sets the width and height of the window in pixels
-	glutInitWindowPosition(10, 10);//sets the position of the window in pixels from top left corner 
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);//creates a single frame buffer of RGB color capacity.
-	glutCreateWindow("DDA Line Algorithm");
-	init();
-	glutDisplayFunc(display);
-	glutMainLoop();
+    printf("Enter radius: ");
+    scanf("%d",&r);
+    y=r;
+    glutInit(&argc, argv);
+    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize (500, 500);
+    glutInitWindowPosition (100, 100);
+    glutCreateWindow ("hello");
+    init ();
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0; /* ISO C requires main to return int. */
 }
